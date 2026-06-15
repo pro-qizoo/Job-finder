@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Pipeline</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: #0e1117; color: #e6e8ee; margin: 0; padding: 24px 14px; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+  .sub { color: #8b93a7; font-size: 13px; margin-top: 4px; }
+  .bar { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 14px; align-items: center; }
+  input[type=text], input[type=password], select { background: #161b24; border: 1px solid #262d3b; border-radius: 8px; color: #e6e8ee; padding: 9px 12px; font-size: 14px; outline: none; }
+  input[type=text] { flex: 1 1 200px; }
+  select { font-size: 13px; }
+  label.chk { font-size: 13px; color: #8b93a7; display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  .card { background: #161b24; border: 1px solid #232a38; border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; cursor: pointer; }
+  .card.open { border-color: #3b82f6; }
+  .row { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+  .title { font-weight: 600; font-size: 15px; }
+  .meta { color: #8b93a7; font-size: 13px; margin-top: 3px; }
+  .meta b { color: #cbd2e0; font-weight: 500; }
+  .tags { display: flex; gap: 8px; margin-top: 8px; align-items: center; flex-wrap: wrap; }
+  .badge { border-radius: 999px; padding: 2px 10px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .dim { font-size: 11px; color: #5d667a; }
+  .scores { display: flex; gap: 10px; flex-shrink: 0; }
+  .scorebox { text-align: center; min-width: 44px; }
+  .scorebox .lbl { font-size: 9px; color: #5d667a; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 1px; }
+  .ring { width: 44px; height: 44px; }
+  .detail { margin-top: 12px; padding-top: 12px; border-top: 1px solid #232a38; font-size: 13px; color: #aab2c5; line-height: 1.55; }
+  .detail h4 { margin: 0 0 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #5d667a; }
+  .detail p { margin: 0 0 12px; white-space: pre-wrap; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+  .btn { display: inline-block; background: #1d2533; border: 1px solid #2e3a50; color: #93b4f5; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer; font-family: inherit; }
+  .btn:hover { border-color: #3b82f6; }
+  .err { background: #2a1518; border: 1px solid #5b2530; border-radius: 10px; padding: 14px; margin: 16px 0; font-size: 13px; color: #f3a5ad; }
+  .empty { color: #8b93a7; font-size: 14px; padding: 24px; text-align: center; }
+  #gate { position: fixed; inset: 0; background: #0e1117; display: flex; align-items: center; justify-content: center; z-index: 10; }
+  #gate .box { width: 300px; text-align: center; }
+  #gate input { width: 100%; margin: 14px 0 10px; text-align: center; }
+  #gate button { width: 100%; }
+  #gate .msg { font-size: 12px; color: #f3a5ad; min-height: 16px; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div id="gate">
+  <div class="box">
+    <h1>Job Pipeline</h1>
+    <input type="password" id="pass" placeholder="Passcode" autocomplete="current-password">
+    <button class="btn" id="go">Unlock</button>
+    <div class="msg" id="gatemsg"></div>
+  </div>
+</div>
+<div class="wrap" id="app" style="display:none">
+  <h1>Job Pipeline</h1>
+  <div class="sub" id="count">Loading…</div>
+  <div id="error"></div>
+  <div class="bar">
+    <input type="text" id="search" placeholder="Search title, company, location…">
+    <select id="status"><option value="all">All statuses</option></select>
+    <select id="minsal">
+      <option value="0">Any salary</option>
+      <option value="70000">£70k+</option>
+      <option value="80000">£80k+</option>
+      <option value="90000">£90k+</option>
+      <option value="100000">£100k+</option>
+    </select>
+    <select id="minmatch">
+      <option value="-1">Match: any</option>
+      <option value="50">Match ≥ 50</option>
+      <option value="60">Match ≥ 60</option>
+      <option value="70">Match ≥ 70</option>
+      <option value="80">Match ≥ 80</option>
+      <option value="90">Match ≥ 90</option>
+    </select>
+    <select id="minfit">
+      <option value="-1">Likelihood: any</option>
+      <option value="50">Likelihood ≥ 50</option>
+      <option value="60">Likelihood ≥ 60</option>
+      <option value="70">Likelihood ≥ 70</option>
+      <option value="80">Likelihood ≥ 80</option>
+      <option value="90">Likelihood ≥ 90</option>
+    </select>
+    <select id="sort">
+      <option value="match">Sort: match score</option>
+      <option value="fit">Sort: likelihood</option>
+      <option value="salary">Sort: salary</option>
+      <option value="date">Sort: posted</option>
+    </select>
+    <label class="chk"><input type="checkbox" id="match"> AI match only</label>
+    <label class="chk"><input type="checkbox" id="scoredonly"> Scored only</label>
+  </div>
+  <div id="list"></div>
+</div>
+<script>
+const API = "https://izrxpheftmtlcuxaimeh.supabase.co/functions/v1/jobs-viewer";
+let jobs = [], expanded = null;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtSal = (min, max) => {
+  const f = n => "£" + (n >= 1000 ? Math.round(n/1000) + "k" : n);
+  if (!min && !max) return null;
+  if (min && max && min !== max) return f(min) + "–" + f(max);
+  return f(min || max);
+};
+const scColor = n => n == null ? "#3a4254" : n >= 80 ? "#34d399" : n >= 60 ? "#fbbf24" : "#8b93a7";
+
+function ring(score, label) {
+  const r = 18, c = 2 * Math.PI * r;
+  const pct = score == null ? 0 : Math.max(0, Math.min(100, score));
+  const col = scColor(score);
+  return `<div class="scorebox">
+    <svg class="ring" viewBox="0 0 44 44">
+      <circle cx="22" cy="22" r="${r}" fill="none" stroke="#232a38" stroke-width="4"/>
+      <circle cx="22" cy="22" r="${r}" fill="none" stroke="${col}" stroke-width="4"
+        stroke-dasharray="${(pct/100)*c} ${c}" stroke-linecap="round" transform="rotate(-90 22 22)"/>
+      <text x="22" y="26" text-anchor="middle" font-size="13" font-weight="700" fill="${score == null ? '#3a4254' : col}">${score == null ? "–" : score}</text>
+    </svg>
+    <div class="lbl">${label}</div>
+  </div>`;
+}
+
+const pc = () => localStorage.getItem("jv_pass") || "";
+
+async function load() {
+  try {
+    const r = await fetch(API + "/data", { headers: { "x-passcode": pc() } });
+    if (r.status === 401) { localStorage.removeItem("jv_pass"); showGate("Wrong passcode"); return; }
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    jobs = await r.json();
+    $("gate").style.display = "none";
+    $("app").style.display = "block";
+    const sel = $("status");
+    while (sel.options.length > 1) sel.remove(1);
+    [...new Set(jobs.map(j => j.status).filter(Boolean))].sort().forEach(s => {
+      const o = document.createElement("option");
+      o.value = o.textContent = s;
+      sel.appendChild(o);
+    });
+    render();
+  } catch (e) {
+    $("gate").style.display = "none";
+    $("app").style.display = "block";
+    $("error").innerHTML = '<div class="err">Couldn\u2019t load data: ' + esc(e.message) + '</div>';
+    $("count").textContent = "";
+  }
+}
+
+function showGate(msg) {
+  $("app").style.display = "none";
+  $("gate").style.display = "flex";
+  $("gatemsg").textContent = msg || "";
+}
+
+function render() {
+  const q = $("search").value.toLowerCase();
+  const st = $("status").value;
+  const ms = +$("minsal").value;
+  const mm = +$("minmatch").value;
+  const mf = +$("minfit").value;
+  const mo = $("match").checked;
+  const so = $("scoredonly").checked;
+  const sort = $("sort").value;
+  const STATUS_COLORS = { new: "#2563eb", reviewed: "#7c3aed", applied: "#059669", rejected: "#9ca3af", expired: "#9ca3af" };
+
+  let out = jobs.filter(j => {
+    if (q && !((j.title||"") + " " + (j.company||"") + " " + (j.location||"")).toLowerCase().includes(q)) return false;
+    if (st !== "all" && j.status !== st) return false;
+    if (mo && !j.ai_match) return false;
+    if (so && j.ai_score == null && j.compatibility_score == null) return false;
+    if (ms && (j.salary_max || j.salary_min || 0) < ms) return false;
+    if (mm >= 0 && (j.ai_score == null || j.ai_score < mm)) return false;
+    if (mf >= 0 && (j.compatibility_score == null || j.compatibility_score < mf)) return false;
+    return true;
+  });
+  const sc = (j, k) => j[k] == null ? -1 : j[k];
+  if (sort === "match") out.sort((a,b) => sc(b,"ai_score") - sc(a,"ai_score"));
+  if (sort === "fit") out.sort((a,b) => sc(b,"compatibility_score") - sc(a,"compatibility_score"));
+  if (sort === "salary") out.sort((a,b) => (b.salary_max||b.salary_min||0) - (a.salary_max||a.salary_min||0));
+  if (sort === "date") out.sort((a,b) => (b.posted_date||"").localeCompare(a.posted_date||""));
+
+  $("count").textContent = out.length + " of " + jobs.length + " roles";
+  $("list").innerHTML = out.length ? out.map(j => {
+    const open = expanded === j.id;
+    const c = STATUS_COLORS[j.status] || "#64748b";
+    const gq = encodeURIComponent((j.title||"") + " " + (j.company||""));
+    const sal = fmtSal(j.salary_min, j.salary_max);
+    return `<div class="card${open ? " open" : ""}" data-id="${esc(j.id)}">
+      <div class="row">
+        <div style="min-width:0">
+          <div class="title">${esc(j.title)}</div>
+          <div class="meta">${esc(j.company)} · ${esc(j.location)}${sal ? " · <b>" + sal + "</b>" : ""}</div>
+          <div class="tags">
+            ${j.status ? `<span class="badge" style="background:${c}22;color:${c}">${esc(j.status)}</span>` : ""}
+            ${j.ai_match ? `<span class="badge" style="background:#34d39922;color:#34d399">match</span>` : ""}
+            ${j.source ? `<span class="dim">${esc(j.source)}</span>` : ""}
+            ${j.posted_date ? `<span class="dim">${esc(j.posted_date)}</span>` : ""}
+          </div>
+        </div>
+        <div class="scores">${ring(j.ai_score, "Match")}${ring(j.compatibility_score, "Likelihood")}</div>
+      </div>
+      ${open ? `<div class="detail">
+        ${j.ai_reasons ? "<h4>AI match reasoning</h4><p>" + esc(j.ai_reasons) + "</p>" : ""}
+        ${j.compatibility_reasons ? "<h4>Likelihood reasoning</h4><p>" + esc(j.compatibility_reasons) + "</p>" : ""}
+        <div class="actions">
+          ${j.url ? `<a class="btn" href="${esc(j.url)}" target="_blank" rel="noreferrer">View listing →</a>` : ""}
+          <a class="btn" href="https://www.google.com/search?q=${gq}" target="_blank" rel="noreferrer">Google it ↗</a>
+          ${j.status !== "applied" ? `<button class="btn apply-btn" data-id="${esc(j.id)}">Mark as applied ✓</button>` : `<button class="btn apply-btn" data-id="${esc(j.id)}" data-undo="1">Undo applied</button>`}
+        </div>
+      </div>` : ""}
+    </div>`;
+  }).join("") : '<div class="empty">No roles match these filters.</div>';
+}
+
+async function setStatus(id, status, btn) {
+  btn.disabled = true;
+  btn.textContent = "Saving…";
+  try {
+    const r = await fetch(API + "/update", {
+      method: "POST",
+      headers: { "x-passcode": pc(), "content-type": "application/json" },
+      body: JSON.stringify({ id, status })
+    });
+    if (r.status === 401) { localStorage.removeItem("jv_pass"); showGate("Session expired, unlock again"); return; }
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const job = jobs.find(j => j.id === id);
+    if (job) job.status = status;
+    render();
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = "Failed, retry?";
+  }
+}
+
+$("list").addEventListener("click", e => {
+  const applyBtn = e.target.closest(".apply-btn");
+  if (applyBtn) {
+    setStatus(applyBtn.dataset.id, applyBtn.dataset.undo ? "new" : "applied", applyBtn);
+    return;
+  }
+  if (e.target.closest("a")) return;
+  const card = e.target.closest(".card");
+  if (!card) return;
+  expanded = expanded === card.dataset.id ? null : card.dataset.id;
+  render();
+});
+["search","status","minsal","minmatch","minfit","sort","match","scoredonly"].forEach(id => $(id).addEventListener("input", render));
+
+function unlock() {
+  const v = $("pass").value.trim();
+  if (!v) return;
+  localStorage.setItem("jv_pass", v);
+  $("gatemsg").textContent = "Checking…";
+  load();
+}
+$("go").addEventListener("click", unlock);
+$("pass").addEventListener("keydown", e => { if (e.key === "Enter") unlock(); });
+if (pc()) { load(); } else { showGate(); }
+</script>
+</body>
+</html>
