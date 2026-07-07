@@ -3,30 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0A0D18">
+<meta name="theme-color" content="#0E1233">
 <title>Job Pipeline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     color-scheme: dark;
-    --bg: #0A0D18;
-    --panel: #141A2E;
-    --panel2: #0F1424;
-    --line: #253052;
-    --line2: #3B4A78;
-    --text: #EDF0FA;
-    --muted: #93A0C2;
-    --faint: #5F6B8F;
-    --magenta: #E879F9;
+    --bg: #0E1233;
+    --panel: #1B2150;
+    --panel2: #161B42;
+    --line: #2F3878;
+    --line2: #4A56AB;
+    --text: #F1F3FF;
+    --muted: #A9B2E0;
+    --faint: #737EC0;
+    --magenta: #F472D0;
     --violet: #A78BFA;
-    --teal: #2DD4BF;
-    --cyan: #22D3EE;
-    --green: #4ADE80;
-    --amber: #FBBF24;
-    --red: #FB7185;
-    --grad: linear-gradient(120deg, #E879F9, #8B5CF6 45%, #22D3EE);
+    --cyan: #38E1FF;
+    --green: #4AE38A;
+    --amber: #FFC94A;
+    --red: #FF7A93;
+    --blue: #5EA2FF;
+    --grad: linear-gradient(115deg, #F472D0, #8B5CF6 45%, #38E1FF);
     --disp: 'Space Grotesk', system-ui, sans-serif;
     --mono: 'JetBrains Mono', ui-monospace, monospace;
     --body: 'Inter', system-ui, sans-serif;
@@ -37,184 +37,196 @@
     font-family: var(--body);
     background: var(--bg);
     color: var(--text);
-    padding-bottom: 80px;
+    padding-bottom: 90px;
     -webkit-font-smoothing: antialiased;
   }
   body::before {
-    content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    content: ""; position: fixed; inset: -10%; z-index: -1; pointer-events: none;
     background:
-      radial-gradient(700px 460px at 8% -10%, rgba(168,85,247,.28), transparent 62%),
-      radial-gradient(800px 540px at 95% -18%, rgba(34,211,238,.20), transparent 62%),
-      radial-gradient(600px 420px at 55% 115%, rgba(232,121,249,.12), transparent 60%);
+      radial-gradient(46% 38% at 10% 0%, rgba(168,85,247,.50), transparent 65%),
+      radial-gradient(50% 42% at 96% 4%, rgba(56,225,255,.32), transparent 65%),
+      radial-gradient(42% 36% at 84% 84%, rgba(244,114,208,.26), transparent 65%),
+      radial-gradient(40% 34% at 6% 92%, rgba(94,162,255,.24), transparent 65%);
+    animation: drift 26s ease-in-out infinite alternate;
   }
+  @keyframes drift { to { transform: translate3d(0, -34px, 0) scale(1.06) rotate(1deg); } }
   .wrap { max-width: 1020px; margin: 0 auto; padding: 0 16px; }
 
   /* ---------- header ---------- */
-  .hero { padding-top: 34px; padding-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
-  .eyebrow { font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: .14em; color: var(--faint); text-transform: uppercase; margin-bottom: 8px; }
+  .hero { padding-top: 36px; padding-bottom: 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+  .eyebrow { font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: .16em; color: var(--faint); text-transform: uppercase; margin-bottom: 8px; }
   h1 {
-    font-family: var(--disp); font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1;
+    font-family: var(--disp); font-size: 38px; font-weight: 700; letter-spacing: -0.02em; margin: 0; line-height: 1;
     background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 22px rgba(139,92,246,.5));
   }
   .stats { display: flex; gap: 8px; flex-wrap: wrap; }
-  .pill {
-    font-family: var(--mono); font-size: 11.5px; font-weight: 700;
-    border-radius: 999px; padding: 6px 13px;
-  }
-  .pill.p1 { color: var(--cyan); background: rgba(34,211,238,.12); border: 1px solid rgba(34,211,238,.3); }
-  .pill.p2 { color: var(--magenta); background: rgba(232,121,249,.10); border: 1px solid rgba(232,121,249,.3); }
-  .pill.p3 { color: var(--green); background: rgba(74,222,128,.10); border: 1px solid rgba(74,222,128,.3); }
+  .pill { font-family: var(--mono); font-size: 12px; font-weight: 700; border-radius: 999px; padding: 7px 14px; }
+  .pill.p1 { color: var(--cyan);    background: rgba(56,225,255,.14);  border: 1px solid rgba(56,225,255,.45); }
+  .pill.p2 { color: var(--magenta); background: rgba(244,114,208,.13); border: 1px solid rgba(244,114,208,.45); }
+  .pill.p3 { color: var(--green);   background: rgba(74,227,138,.13);  border: 1px solid rgba(74,227,138,.45); }
 
   /* ---------- filter deck ---------- */
   .deck {
     position: sticky; top: 0; z-index: 5;
-    background: rgba(10,13,24,.82); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    background: rgba(14,18,51,.78); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     padding: 12px 0 11px;
   }
-  .deck::after { content: ""; display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(139,92,246,.6), rgba(34,211,238,.6), transparent); }
+  .deck::after { content: ""; display: block; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, #F472D0, #8B5CF6, #38E1FF, transparent); opacity: .7; }
   .deckrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .deckrow + .deckrow { margin-top: 8px; }
+  .deckrow + .deckrow, .chiprow { margin-top: 9px; }
+  .chiprow { width: 100%; }
   input[type=text], input[type=password], select {
-    background: var(--panel2); border: 1px solid var(--line); border-radius: 10px;
-    color: var(--text); padding: 9px 12px; font-size: 14px; font-family: var(--body); outline: none;
+    background: var(--panel2); border: 1px solid var(--line); border-radius: 11px;
+    color: var(--text); padding: 10px 12px; font-size: 14px; font-family: var(--body); outline: none;
   }
   input[type=text] { flex: 1 1 220px; min-width: 160px; }
   input::placeholder { color: var(--faint); }
-  select { font-size: 13px; cursor: pointer; }
+  select { font-size: 13px; cursor: pointer; font-weight: 600; }
   input:focus-visible, select:focus-visible, button:focus-visible, .card:focus-visible {
-    outline: 2px solid var(--violet); outline-offset: 2px;
+    outline: 2px solid var(--cyan); outline-offset: 2px;
   }
-  input[type=text]:focus, select:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(167,139,250,.15); }
-  .chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; flex: 1; padding: 2px; }
+  input[type=text]:focus, select:focus { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(167,139,250,.25); }
+  .chips { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; padding: 3px 2px; }
   .chips::-webkit-scrollbar { display: none; }
   .fchip, .tog {
     font-family: var(--body); font-size: 12.5px; font-weight: 600; white-space: nowrap;
-    border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px;
-    background: transparent; color: var(--muted); cursor: pointer;
+    border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px;
+    background: rgba(22,27,66,.7); color: var(--muted); cursor: pointer; flex: 0 0 auto;
+    display: inline-flex; align-items: center; gap: 7px;
   }
+  .fchip i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
   .fchip:hover, .tog:hover { border-color: var(--line2); color: var(--text); }
   .fchip[data-on], .tog[data-on] {
-    color: #0A0D18; background: var(--grad); border-color: transparent;
-    box-shadow: 0 2px 12px rgba(139,92,246,.4);
+    color: #0E1233; background: var(--grad); border-color: transparent;
+    box-shadow: 0 3px 16px rgba(139,92,246,.55);
   }
+  .fchip[data-on] i { background: #0E1233 !important; }
   .reset { background: none; border: none; color: var(--faint); font-size: 12px; font-family: var(--body); cursor: pointer; padding: 6px 8px; }
   .reset:hover { color: var(--text); }
 
   /* ---------- list ---------- */
-  .count { color: var(--muted); font-size: 13px; margin: 14px 0 12px; font-family: var(--mono); }
+  .count { color: var(--muted); font-size: 13px; margin: 15px 0 12px; font-family: var(--mono); }
   .card {
-    background: var(--panel); border: 1px solid var(--line); border-left-width: 3px; border-radius: 14px;
-    padding: 15px 16px; margin-bottom: 10px; cursor: pointer;
+    background: linear-gradient(150deg, #1E255C, #171C48 70%);
+    border: 1px solid var(--line); border-left-width: 4px; border-radius: 16px;
+    padding: 16px 17px; margin-bottom: 11px; cursor: pointer;
     transition: border-color .15s, transform .15s, box-shadow .15s;
   }
-  .card:hover { border-color: var(--line2); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(139,92,246,.14); }
+  .card:hover { border-color: var(--line2); transform: translateY(-2px); box-shadow: 0 10px 34px rgba(99,102,241,.28); }
   .card.open {
-    cursor: default; border-color: transparent !important;
-    box-shadow: 0 0 0 1px rgba(232,121,249,.5), 0 0 0 2px rgba(34,211,238,.25), 0 12px 38px rgba(0,0,0,.45);
+    cursor: default;
+    box-shadow: 0 0 0 1.5px rgba(244,114,208,.6), 0 0 0 3px rgba(56,225,255,.25), 0 14px 44px rgba(0,0,0,.45);
   }
   .card.in { animation: rise .4s cubic-bezier(.2,.7,.3,1) both; }
-  @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } }
   .row { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
-  .title { font-family: var(--disp); font-weight: 700; font-size: 16px; letter-spacing: -0.01em; }
-  .meta { color: var(--muted); font-size: 13px; margin-top: 3px; }
+  .title { font-family: var(--disp); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+  .meta { color: var(--muted); font-size: 13.5px; margin-top: 4px; }
   .meta b { color: var(--green); font-weight: 700; }
-  .tags { display: flex; gap: 8px; margin-top: 9px; align-items: center; flex-wrap: wrap; }
+  .tags { display: flex; gap: 8px; margin-top: 10px; align-items: center; flex-wrap: wrap; }
   .badge {
-    border-radius: 999px; padding: 3px 10px; font-size: 10.5px; font-weight: 700;
+    border-radius: 999px; padding: 3.5px 11px; font-size: 10.5px; font-weight: 700;
     text-transform: uppercase; letter-spacing: .05em; font-family: var(--mono);
   }
-  .dim { font-size: 11px; color: var(--faint); font-family: var(--mono); }
+  .dim { font-size: 11.5px; color: var(--faint); font-family: var(--mono); }
+  .when { font-size: 12.5px; color: var(--muted); }
 
-  /* ---------- score dial (signature) ---------- */
-  .gauge { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
-  .dial { width: 56px; height: 56px; }
+  /* ---------- twin score rings ---------- */
+  .gauge { display: flex; gap: 8px; flex-shrink: 0; }
+  .scorebox { text-align: center; }
+  .ringw { width: 50px; height: 50px; }
+  .ring-m { filter: drop-shadow(0 0 7px rgba(244,114,208,.55)); }
+  .ring-l { filter: drop-shadow(0 0 7px rgba(56,225,255,.5)); }
   .arc { transition: stroke-dasharray .9s cubic-bezier(.2,.7,.2,1); }
-  .nums { display: flex; flex-direction: column; gap: 5px; }
-  .num { font-family: var(--mono); font-size: 13px; font-weight: 700; line-height: 1; display: flex; align-items: baseline; gap: 5px; }
-  .num small { font-size: 9px; font-weight: 500; color: var(--faint); letter-spacing: .08em; text-transform: uppercase; }
-  .num.m { color: var(--magenta); }
-  .num.l { color: var(--cyan); }
-  .num.none { color: var(--faint); }
+  .scorebox .lbl { font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; margin-top: 3px; }
+  .scorebox .lbl.m { color: var(--magenta); }
+  .scorebox .lbl.l { color: var(--cyan); }
+  .scorebox .lbl.none { color: var(--faint); }
 
   /* ---------- detail ---------- */
-  .detail { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); animation: fadein .2s ease both; }
+  .detail { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--line); animation: fadein .2s ease both; }
   @keyframes fadein { from { opacity: 0; } }
-  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 14px; }
-  .fact { background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; }
-  .fact .k { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 10px; margin-bottom: 15px; }
+  .fact { background: rgba(14,18,51,.55); border: 1px solid var(--line); border-radius: 11px; padding: 10px 12px; }
+  .fact .k { font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
   .fact .v { font-size: 13.5px; font-weight: 600; }
   .fact .v small { color: var(--muted); font-weight: 400; }
+  .fact.f1 { border-color: rgba(74,227,138,.4); }  .fact.f1 .k { color: var(--green); }
+  .fact.f2 { border-color: rgba(56,225,255,.4); }  .fact.f2 .k { color: var(--cyan); }
+  .fact.f3 { border-color: rgba(167,139,250,.4); } .fact.f3 .k { color: var(--violet); }
+  .fact.f4 { border-color: rgba(255,201,74,.4); }  .fact.f4 .k { color: var(--amber); }
   .why h4 { margin: 0 0 5px; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
   .why h4.m { color: var(--magenta); }
   .why h4.l { color: var(--cyan); }
-  .why p { margin: 0 0 14px; white-space: pre-wrap; font-size: 13.5px; color: #BCC5DE; line-height: 1.6; }
+  .why p { margin: 0 0 15px; white-space: pre-wrap; font-size: 13.5px; color: #C6CDF2; line-height: 1.6; }
 
-  .setlbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); margin: 2px 0 7px; }
-  .schips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .setlbl { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--faint); margin: 2px 0 8px; }
+  .schips { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 15px; }
   .schip {
     font-size: 12.5px; font-weight: 600; font-family: var(--body);
-    border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px;
-    background: transparent; color: var(--muted); cursor: pointer;
+    border: 1px solid var(--line); border-radius: 999px; padding: 7px 13px;
+    background: rgba(14,18,51,.5); color: var(--muted); cursor: pointer;
   }
   .schip:hover { border-color: var(--line2); color: var(--text); }
-  .schip[data-on] { border-color: transparent; }
+  .schip[data-on] { border-color: transparent; font-weight: 700; }
   .schip:disabled { opacity: .5; cursor: wait; }
 
-  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .actions { display: flex; gap: 9px; flex-wrap: wrap; }
   .btn {
     display: inline-flex; align-items: center; gap: 6px;
-    background: var(--panel2); border: 1px solid var(--line2); color: var(--text);
-    border-radius: 10px; padding: 9px 14px; font-size: 13px; font-weight: 600;
+    background: rgba(14,18,51,.6); border: 1px solid var(--line2); color: var(--text);
+    border-radius: 11px; padding: 10px 15px; font-size: 13px; font-weight: 600;
     text-decoration: none; cursor: pointer; font-family: var(--body);
   }
-  .btn:hover { border-color: var(--violet); box-shadow: 0 0 0 3px rgba(167,139,250,.12); }
+  .btn:hover { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(56,225,255,.18); }
   .btn.primary {
-    background: var(--grad); color: #0A0D18; border-color: transparent;
-    box-shadow: 0 3px 14px rgba(139,92,246,.45);
+    background: var(--grad); color: #0E1233; border-color: transparent; font-weight: 700;
+    box-shadow: 0 4px 18px rgba(139,92,246,.55);
   }
   .btn.primary:hover { filter: brightness(1.1); }
 
   /* ---------- states ---------- */
-  .err { background: #2A1520; border: 1px solid #6B2540; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 13px; color: #FDA4AF; line-height: 1.6; }
+  .err { background: rgba(80,20,45,.5); border: 1px solid #8B2D55; border-radius: 12px; padding: 14px 16px; margin: 16px 0; font-size: 13px; color: #FFB3C6; line-height: 1.6; }
   .err .btn { margin: 8px 8px 0 0; }
-  .empty { color: var(--muted); font-size: 14px; padding: 40px 20px; text-align: center; border: 1px dashed var(--line); border-radius: 14px; }
+  .empty { color: var(--muted); font-size: 14px; padding: 40px 20px; text-align: center; border: 1px dashed var(--line); border-radius: 16px; }
   .empty .btn { margin-top: 12px; }
-  .skel { height: 88px; border-radius: 14px; margin-bottom: 10px; border: 1px solid var(--line);
-    background: linear-gradient(100deg, var(--panel) 40%, #1D2542 50%, var(--panel) 60%);
+  .skel { height: 92px; border-radius: 16px; margin-bottom: 11px; border: 1px solid var(--line);
+    background: linear-gradient(100deg, var(--panel) 40%, #262E6E 50%, var(--panel) 60%);
     background-size: 300% 100%; animation: shimmer 1.2s infinite linear; }
   @keyframes shimmer { to { background-position: -300% 0; } }
 
   .toast {
     position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 12px);
-    background: var(--panel); border: 1px solid var(--line2); border-radius: 10px;
-    padding: 10px 16px; font-size: 13px; font-weight: 600; opacity: 0;
+    background: var(--panel); border: 1px solid var(--line2); border-radius: 11px;
+    padding: 11px 17px; font-size: 13px; font-weight: 600; opacity: 0;
     pointer-events: none; transition: opacity .2s, transform .2s; z-index: 20;
-    box-shadow: 0 8px 30px rgba(0,0,0,.5);
+    box-shadow: 0 10px 34px rgba(0,0,0,.55);
   }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
   /* ---------- gate ---------- */
   #gate { position: fixed; inset: 0; background: var(--bg); display: flex; align-items: center; justify-content: center; z-index: 10; }
   #gate::before { content: ""; position: absolute; inset: 0;
-    background: radial-gradient(520px 380px at 50% 18%, rgba(168,85,247,.22), transparent 65%),
-                radial-gradient(420px 320px at 70% 70%, rgba(34,211,238,.12), transparent 65%); pointer-events: none; }
-  #gate .box { width: 320px; text-align: center; position: relative;
-    background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 32px 26px;
-    box-shadow: 0 0 0 1px rgba(139,92,246,.25), 0 20px 60px rgba(0,0,0,.5); }
+    background: radial-gradient(60% 45% at 50% 12%, rgba(168,85,247,.42), transparent 70%),
+                radial-gradient(50% 40% at 75% 80%, rgba(56,225,255,.22), transparent 65%); pointer-events: none; }
+  #gate .box { width: 322px; text-align: center; position: relative;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 34px 26px;
+    box-shadow: 0 0 0 1.5px rgba(244,114,208,.35), 0 24px 70px rgba(0,0,0,.55); }
   #gate .eyebrow { margin-bottom: 10px; }
-  #gate h1 { font-size: 24px; }
+  #gate h1 { font-size: 26px; }
   #gate input { width: 100%; margin: 18px 0 10px; text-align: center; font-family: var(--mono); letter-spacing: .2em; }
   #gate .btn { width: 100%; justify-content: center; }
-  #gate .msg { font-size: 12px; color: #FDA4AF; min-height: 16px; margin-top: 10px; }
+  #gate .msg { font-size: 12px; color: #FFB3C6; min-height: 16px; margin-top: 10px; }
   #gate .demo { display: inline-block; margin-top: 12px; font-size: 12px; color: var(--faint); background: none; border: none; cursor: pointer; text-decoration: underline; font-family: var(--body); }
   #gate .demo:hover { color: var(--text); }
 
   @media (max-width: 560px) {
-    h1 { font-size: 25px; }
-    .hero { padding-top: 24px; }
-    .dial { width: 48px; height: 48px; }
-    .card { padding: 13px 13px; }
+    h1 { font-size: 29px; }
+    .hero { padding-top: 26px; }
+    .ringw { width: 44px; height: 44px; }
+    .card { padding: 14px 14px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -226,10 +238,10 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="gm" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#E879F9"/><stop offset="1" stop-color="#8B5CF6"/>
+      <stop offset="0" stop-color="#F472D0"/><stop offset="1" stop-color="#8B5CF6"/>
     </linearGradient>
     <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#4ADE80"/>
+      <stop offset="0" stop-color="#38E1FF"/><stop offset="1" stop-color="#4AE38A"/>
     </linearGradient>
   </defs>
 </svg>
@@ -265,32 +277,34 @@
           <option value="90000">£90k+</option>
           <option value="100000">£100k+</option>
         </select>
-        <select id="minmatch" title="Minimum match score (out of 80)">
+        <select id="minmatch" title="Minimum match score">
           <option value="-1">Match: any</option>
           <option value="50">Match ≥ 50</option>
-          <option value="55">Match ≥ 55</option>
           <option value="60">Match ≥ 60</option>
-          <option value="65">Match ≥ 65</option>
           <option value="70">Match ≥ 70</option>
+          <option value="80">Match ≥ 80</option>
+          <option value="90">Match ≥ 90</option>
         </select>
-        <select id="minfit" title="Minimum likelihood score (out of 80)">
+        <select id="minfit" title="Minimum likelihood score">
           <option value="-1">Likelihood: any</option>
           <option value="50">Likelihood ≥ 50</option>
-          <option value="55">Likelihood ≥ 55</option>
           <option value="60">Likelihood ≥ 60</option>
-          <option value="65">Likelihood ≥ 65</option>
           <option value="70">Likelihood ≥ 70</option>
+          <option value="80">Likelihood ≥ 80</option>
+          <option value="90">Likelihood ≥ 90</option>
         </select>
         <select id="sort" title="Sort order">
-          <option value="best">Sort: best overall</option>
+          <option value="best">Sort: apply next</option>
           <option value="match">Sort: match</option>
           <option value="fit">Sort: likelihood</option>
           <option value="salary">Sort: salary</option>
           <option value="date">Sort: newest</option>
         </select>
       </div>
-      <div class="deckrow">
+      <div class="chiprow">
         <div class="chips" id="statuschips"></div>
+      </div>
+      <div class="deckrow">
         <button class="tog" id="tflag" type="button">AI match ✦</button>
         <button class="tog" id="tscored" type="button">Scored only</button>
         <button class="tog" id="tsal" type="button">Salary listed</button>
@@ -310,18 +324,19 @@
 
 <script>
 const API = "https://izrxpheftmtlcuxaimeh.supabase.co/functions/v1/jobs-viewer";
-const SCORE_MAX = 80;                       // both scores are out of 80, not 100
+let SCORE_MAX = 100;                        // auto-detected from data in boot()
 const DEAD = new Set(["rejected", "expired", "not_interested"]);
+const IN_PROGRESS = new Set(["applied", "interviewing", "offer"]);
 const STATUS_META = {
-  new:            { label: "New",          color: "#38BDF8" },
-  reviewed:       { label: "Reviewed",     color: "#94A3B8" },
-  shortlisted:    { label: "Shortlisted",  color: "#FBBF24" },
-  applied:        { label: "Applied",      color: "#34D399" },
+  new:            { label: "New",          color: "#5EA2FF" },
+  reviewed:       { label: "Reviewed",     color: "#A9B2E0" },
+  shortlisted:    { label: "Shortlisted",  color: "#FFC94A" },
+  applied:        { label: "Applied",      color: "#4AE38A" },
   interviewing:   { label: "Interviewing", color: "#C084FC" },
-  offer:          { label: "Offer",        color: "#4ADE80" },
-  rejected:       { label: "Rejected",     color: "#FB7185" },
-  expired:        { label: "Expired",      color: "#64748B" },
-  not_interested: { label: "Not for me",   color: "#64748B" }
+  offer:          { label: "Offer",        color: "#34D399" },
+  rejected:       { label: "Rejected",     color: "#FF7A93" },
+  expired:        { label: "Expired",      color: "#737EC0" },
+  not_interested: { label: "Not for me",   color: "#737EC0" }
 };
 const SETTABLE = ["new", "shortlisted", "applied", "interviewing", "offer", "rejected", "not_interested"];
 
@@ -338,7 +353,7 @@ const store = {
   del: k => { try { localStorage.removeItem(k); } catch (e) { delete MEM[k]; } }
 };
 
-/* ---------- defensive parsing (text-typed columns survive) ---------- */
+/* ---------- defensive parsing ---------- */
 const num = v => {
   if (v == null || v === "") return null;
   if (typeof v === "number") return isFinite(v) ? v : null;
@@ -363,42 +378,50 @@ const ago = d => {
   const days = Math.floor((Date.now() - t) / 86400000);
   if (days < 0) return "";
   if (days === 0) return "today";
-  if (days < 7) return days + "d ago";
-  if (days < 60) return Math.floor(days / 7) + "w ago";
-  return Math.floor(days / 30) + "mo ago";
+  if (days === 1) return "yesterday";
+  if (days < 7) return days + " days ago";
+  if (days < 60) return Math.floor(days / 7) + " wks ago";
+  return Math.floor(days / 30) + " mths ago";
 };
-const statusMeta = s => STATUS_META[s] || { label: s, color: "#64748B" };
+const fmtDate = d => {
+  if (!d) return "";
+  const t = new Date(d);
+  if (!isFinite(t.getTime())) return String(d);
+  const o = { day: "numeric", month: "short" };
+  if (t.getFullYear() !== new Date().getFullYear()) o.year = "numeric";
+  return t.toLocaleDateString("en-GB", o);
+};
+const statusMeta = s => STATUS_META[s] || { label: s, color: "#737EC0" };
 
 /* ---------- filter state, persisted ---------- */
 const DEF_F = { q: "", status: "all", minsal: 0, minmatch: -1, minfit: -1, sort: "best", flag: false, scored: false, hasSal: false };
 let F = { ...DEF_F };
 try { F = { ...DEF_F, ...JSON.parse(store.get("jv_filters") || "{}") }; } catch (e) {}
+const VALID_MIN = [-1, 50, 60, 70, 80, 90];
+if (!VALID_MIN.includes(F.minmatch)) F.minmatch = -1;
+if (!VALID_MIN.includes(F.minfit)) F.minfit = -1;
 const saveF = () => store.set("jv_filters", JSON.stringify(F));
 
-/* ---------- signature dial: outer arc = match, inner = likelihood ---------- */
-function dial(j) {
-  const a = aScore(j), c = cScore(j);
-  const R1 = 23, R2 = 15, C1 = 2 * Math.PI * R1, C2 = 2 * Math.PI * R2;
-  const pct = v => v == null ? 0 : Math.max(0, Math.min(1, v / SCORE_MAX));
-  const arc = (r, circ, v, grad) => {
-    const fin = (pct(v) * circ).toFixed(1) + " " + circ.toFixed(1);
-    const init = (firstRender && motionOK) ? "0 " + circ.toFixed(1) : fin;
-    return `<circle class="arc" data-final="${fin}" cx="28" cy="28" r="${r}" fill="none"
-      stroke="${v == null ? "#2A3352" : "url(#" + grad + ")"}" stroke-width="5" stroke-linecap="round"
-      stroke-dasharray="${init}" transform="rotate(-90 28 28)"/>`;
-  };
-  const numRow = (v, cls, lbl) =>
-    `<div class="num ${v == null ? "none" : cls}">${v == null ? "–" : v}<small>${lbl}</small></div>`;
-  return `<div class="gauge">
-    <svg class="dial" viewBox="0 0 56 56" aria-hidden="true">
-      <circle cx="28" cy="28" r="${R1}" fill="none" stroke="#1E2542" stroke-width="5"/>
-      <circle cx="28" cy="28" r="${R2}" fill="none" stroke="#1E2542" stroke-width="5"/>
-      ${arc(R1, C1, a, "gm")}
-      ${arc(R2, C2, c, "gl")}
+/* ---------- twin score rings ---------- */
+function ring(v, grad, cls, label) {
+  const R = 19, C = 2 * Math.PI * R;
+  const pct = v == null ? 0 : Math.max(0, Math.min(1, v / SCORE_MAX));
+  const fin = (pct * C).toFixed(1) + " " + C.toFixed(1);
+  const init = (firstRender && motionOK) ? "0 " + C.toFixed(1) : fin;
+  const col = cls === "m" ? "var(--magenta)" : "var(--cyan)";
+  return `<div class="scorebox">
+    <svg class="ringw ${v == null ? "" : "ring-" + cls}" viewBox="0 0 46 46" aria-hidden="true">
+      <circle cx="23" cy="23" r="${R}" fill="none" stroke="#262E6E" stroke-width="4.5"/>
+      <circle class="arc" data-final="${fin}" cx="23" cy="23" r="${R}" fill="none"
+        stroke="${v == null ? "#333C82" : "url(#" + grad + ")"}" stroke-width="4.5" stroke-linecap="round"
+        stroke-dasharray="${init}" transform="rotate(-90 23 23)"/>
+      <text x="23" y="27.5" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="13.5" font-weight="700"
+        fill="${v == null ? "#737EC0" : col}">${v == null ? "–" : v}</text>
     </svg>
-    <div class="nums">${numRow(a, "m", "match")}${numRow(c, "l", "likely")}</div>
+    <div class="lbl ${v == null ? "none" : cls}">${label}</div>
   </div>`;
 }
+const gauge = j => `<div class="gauge">${ring(aScore(j), "gm", "m", "Match")}${ring(cScore(j), "gl", "l", "Likely")}</div>`;
 
 /* ---------- gate + load ---------- */
 const pc = () => store.get("jv_pass") || "";
@@ -411,6 +434,8 @@ function showGate(msg) {
 
 function boot(data) {
   jobs = data.map(j => ({ ...j, id: String(j.id) }));
+  const vals = jobs.flatMap(j => [aScore(j), cScore(j)]).filter(v => v != null);
+  SCORE_MAX = vals.length && Math.max(...vals) > 80 ? 100 : 80;   // adapt ring scale to the data
   $("gate").style.display = "none";
   $("app").style.display = "block";
   $("error").innerHTML = "";
@@ -433,7 +458,7 @@ async function load() {
     $("app").style.display = "block";
     const hint = String(e.message).includes("HTTP")
       ? "The server responded with an error."
-      : "The request never reached the server. Sandboxed previews (like an in-app file viewer) block external requests \u2013 this page works when opened in a normal browser or deployed to GitHub Pages.";
+      : "The request never reached the server. Sandboxed previews block external requests \u2013 this page works in a normal browser or on GitHub Pages.";
     $("error").innerHTML = '<div class="err"><b>Couldn\u2019t load data</b> (' + esc(e.message) + ').<br>' + hint +
       '<br><button class="btn" onclick="load()">Retry</button>' +
       '<button class="btn" onclick="loadDemo()">Preview with sample data</button></div>';
@@ -443,11 +468,11 @@ async function load() {
 
 /* ---------- sample data for previewing the design ---------- */
 const DEMO = [
-  { id: 1, title: "AI Engineer", company: "Xelix", location: "London (hybrid)", salary_min: 90000, salary_max: 110000, status: "new", ai_match: true, source: "reed", posted_date: "2026-07-04", ai_score: 72, compatibility_score: 61, ai_reasons: "Strong overlap with your LLM pipeline work: production prompt engineering, evals, and agentic workflows in a fintech context.", compatibility_reasons: "They ask for 2+ years shipping LLM features to real users. Your internal tooling is close but not public-facing, so expect scrutiny here.", url: "https://example.com/1" },
-  { id: 2, title: "Forward Deployed Engineer", company: "9fin", location: "London", salary_min: 85000, salary_max: 100000, status: "shortlisted", ai_match: true, source: "adzuna", posted_date: "2026-07-02", ai_score: 68, compatibility_score: 66, ai_reasons: "Client-facing technical role blending solutions work with hands-on builds. Matches your BA-to-builder profile well.", compatibility_reasons: "Good shape match. Fintech domain knowledge from Charles Stanley and Barclays is a genuine differentiator here.", url: "https://example.com/2" },
-  { id: 3, title: "Solutions Architect, Wealth Platforms", company: "FNZ", location: "London / remote UK", salary_min: 95000, salary_max: null, status: "applied", ai_match: false, source: "reed", posted_date: "2026-06-28", ai_score: 61, compatibility_score: 70, ai_reasons: "Wealth management platform work, directly adjacent to your day job. Less AI content than your preferred roles.", compatibility_reasons: "Very strong domain fit. Eight years in UK wealth/banking maps cleanly onto their client base.", url: "https://example.com/3" },
-  { id: 4, title: "Senior Technical Business Analyst", company: "InvestCloud", location: "London", salary_min: null, salary_max: null, status: "new", ai_match: false, source: "adzuna", posted_date: "2026-07-06", ai_score: 55, compatibility_score: 68, ai_reasons: "Safe-shape role. Title drag risk: it keeps you in the analyst lane rather than moving you towards engineering.", compatibility_reasons: "High likelihood of interviews given your track record, but weigh against your AI engineer ambitions.", url: "https://example.com/4" },
-  { id: 5, title: "AI Enablement Lead", company: "Morningstar", location: "Remote (UK)", salary_min: 80000, salary_max: 95000, status: "rejected", ai_match: true, source: "reed", posted_date: "2026-06-20", ai_score: 70, compatibility_score: 52, ai_reasons: "Firm-wide AI adoption role, almost exactly what you do informally today.", compatibility_reasons: "Rejected at CV stage. Likely ATS keyword filtering on formal AI programme management experience.", url: "https://example.com/5" }
+  { id: 1, title: "AI Engineer", company: "Xelix", location: "London (hybrid)", salary_min: 90000, salary_max: 110000, status: "new", ai_match: true, source: "reed", posted_date: "2026-07-04", ai_score: 88, compatibility_score: 74, ai_reasons: "Strong overlap with your LLM pipeline work: production prompt engineering, evals, and agentic workflows in a fintech context.", compatibility_reasons: "They ask for 2+ years shipping LLM features to real users. Your internal tooling is close but not public-facing, so expect scrutiny here.", url: "https://example.com/1" },
+  { id: 2, title: "Forward Deployed Engineer", company: "9fin", location: "London", salary_min: 85000, salary_max: 100000, status: "shortlisted", ai_match: true, source: "adzuna", posted_date: "2026-07-02", ai_score: 84, compatibility_score: 79, ai_reasons: "Client-facing technical role blending solutions work with hands-on builds. Matches your BA-to-builder profile well.", compatibility_reasons: "Good shape match. Fintech domain knowledge is a genuine differentiator here.", url: "https://example.com/2" },
+  { id: 3, title: "Solutions Architect, Wealth Platforms", company: "FNZ", location: "London / remote UK", salary_min: 95000, salary_max: null, status: "applied", ai_match: false, source: "reed", posted_date: "2026-06-28", ai_score: 76, compatibility_score: 85, ai_reasons: "Wealth management platform work, directly adjacent to your day job. Less AI content than your preferred roles.", compatibility_reasons: "Very strong domain fit. Eight years in UK wealth/banking maps cleanly onto their client base.", url: "https://example.com/3" },
+  { id: 4, title: "Senior Technical Business Analyst", company: "InvestCloud", location: "London", salary_min: null, salary_max: null, status: "new", ai_match: false, source: "adzuna", posted_date: "2026-07-06", ai_score: 68, compatibility_score: 82, ai_reasons: "Safe-shape role. Title drag risk: it keeps you in the analyst lane rather than moving you towards engineering.", compatibility_reasons: "High likelihood of interviews given your track record, but weigh against your AI engineer ambitions.", url: "https://example.com/4" },
+  { id: 5, title: "AI Enablement Lead", company: "Morningstar", location: "Remote (UK)", salary_min: 80000, salary_max: 95000, status: "rejected", ai_match: true, source: "reed", posted_date: "2026-06-20", ai_score: 86, compatibility_score: 62, ai_reasons: "Firm-wide AI adoption role, almost exactly what you do informally today.", compatibility_reasons: "Rejected at CV stage. Likely ATS keyword filtering on formal AI programme management experience.", url: "https://example.com/5" }
 ];
 function loadDemo() {
   demoMode = true;
@@ -461,9 +486,10 @@ function buildStatusChips() {
   const ordered = [...Object.keys(STATUS_META).filter(s => present.has(s)),
                    ...[...present].filter(s => !STATUS_META[s]).sort()];
   const el = $("statuschips");
-  el.innerHTML = ['all', ...ordered].map(s =>
-    `<button class="fchip" type="button" data-s="${esc(s)}">${s === "all" ? "All" : esc(statusMeta(s).label)}</button>`
-  ).join("");
+  el.innerHTML = ['all', ...ordered].map(s => {
+    const dot = s === "all" ? "" : `<i style="background:${statusMeta(s).color}"></i>`;
+    return `<button class="fchip" type="button" data-s="${esc(s)}">${dot}${s === "all" ? "All" : esc(statusMeta(s).label)}</button>`;
+  }).join("");
   el.querySelectorAll(".fchip").forEach(b => b.addEventListener("click", () => {
     F.status = b.dataset.s; saveF(); syncControls(); render();
   }));
@@ -495,6 +521,7 @@ const combined = j => {
   const a = aScore(j), c = cScore(j);
   return (a == null && c == null) ? -1 : (a || 0) + (c || 0);
 };
+const stage = j => DEAD.has(j.status) ? 2 : IN_PROGRESS.has(j.status) ? 1 : 0;  // to-action first, in-flight next, dead last
 
 function render() {
   const q = F.q.trim().toLowerCase();
@@ -514,14 +541,14 @@ function render() {
 
   const byDate = (a, b) => String(b.posted_date || "").localeCompare(String(a.posted_date || ""));
   if (F.sort === "best") out.sort((a, b) =>
-    (DEAD.has(a.status) - DEAD.has(b.status)) || (combined(b) - combined(a)) || byDate(a, b));
+    (stage(a) - stage(b)) || (combined(b) - combined(a)) || byDate(a, b));
   if (F.sort === "match") out.sort((a, b) => ((aScore(b) ?? -1) - (aScore(a) ?? -1)) || byDate(a, b));
   if (F.sort === "fit") out.sort((a, b) => ((cScore(b) ?? -1) - (cScore(a) ?? -1)) || byDate(a, b));
   if (F.sort === "salary") out.sort((a, b) => ((sMax(b) || sMin(b) || 0) - (sMax(a) || sMin(a) || 0)) || byDate(a, b));
   if (F.sort === "date") out.sort(byDate);
 
   const live = jobs.filter(j => !DEAD.has(j.status)).length;
-  const applied = jobs.filter(j => ["applied", "interviewing", "offer"].includes(j.status)).length;
+  const applied = jobs.filter(j => IN_PROGRESS.has(j.status)).length;
   const flagged = jobs.filter(j => isTrue(j.ai_match)).length;
   $("stats").innerHTML =
     `<span class="pill p1"><b>${live}</b> live</span>` +
@@ -553,13 +580,13 @@ function card(j, i) {
         <div class="title">${esc(j.title)}</div>
         <div class="meta">${esc(j.company)} · ${esc(j.location)}${sal ? " · <b>" + sal + "</b>" : ""}</div>
         <div class="tags">
-          ${j.status ? `<span class="badge" style="background:${sm.color}2E;color:${sm.color}">${esc(sm.label)}</span>` : ""}
-          ${isTrue(j.ai_match) ? `<span class="badge" style="background:#E879F92E;color:#E879F9">✦ match</span>` : ""}
+          ${j.status ? `<span class="badge" style="background:${sm.color}30;color:${sm.color}">${esc(sm.label)}</span>` : ""}
+          ${isTrue(j.ai_match) ? `<span class="badge" style="background:#F472D030;color:#F472D0">✦ match</span>` : ""}
           ${j.source ? `<span class="dim">${esc(j.source)}</span>` : ""}
-          ${j.posted_date ? `<span class="dim">${esc(ago(j.posted_date) || j.posted_date)}</span>` : ""}
+          ${j.posted_date ? `<span class="when">${esc(ago(j.posted_date) || fmtDate(j.posted_date))}</span>` : ""}
         </div>
       </div>
-      ${dial(j)}
+      ${gauge(j)}
     </div>
     ${open ? detail(j) : ""}
   </div>`;
@@ -567,25 +594,27 @@ function card(j, i) {
 
 function detail(j) {
   const sal = fmtSal(j);
-  const posted = j.posted_date ? esc(j.posted_date) + (ago(j.posted_date) ? ` <small>· ${ago(j.posted_date)}</small>` : "") : "—";
+  const posted = j.posted_date
+    ? esc(fmtDate(j.posted_date)) + (ago(j.posted_date) ? ` <small>· ${ago(j.posted_date)}</small>` : "")
+    : "—";
   const gq = encodeURIComponent((j.title || "") + " " + (j.company || ""));
   const desc = j.description ? String(j.description).slice(0, 600) : null;
   return `<div class="detail">
     <div class="facts">
-      <div class="fact"><div class="k">Salary</div><div class="v">${sal || "Not listed"}</div></div>
-      <div class="fact"><div class="k">Location</div><div class="v">${esc(j.location) || "—"}</div></div>
-      <div class="fact"><div class="k">Posted</div><div class="v">${posted}</div></div>
-      <div class="fact"><div class="k">Source</div><div class="v">${esc(j.source) || "—"}</div></div>
+      <div class="fact f1"><div class="k">Salary</div><div class="v">${sal || "Not listed"}</div></div>
+      <div class="fact f2"><div class="k">Location</div><div class="v">${esc(j.location) || "—"}</div></div>
+      <div class="fact f3"><div class="k">Posted</div><div class="v">${posted}</div></div>
+      <div class="fact f4"><div class="k">Source</div><div class="v">${esc(j.source) || "—"}</div></div>
     </div>
-    ${j.ai_reasons ? `<div class="why"><h4 class="m">Match · why it fits (${aScore(j) ?? "–"}/${SCORE_MAX})</h4><p>${esc(j.ai_reasons)}</p></div>` : ""}
-    ${j.compatibility_reasons ? `<div class="why"><h4 class="l">Likelihood · your chances (${cScore(j) ?? "–"}/${SCORE_MAX})</h4><p>${esc(j.compatibility_reasons)}</p></div>` : ""}
+    ${j.ai_reasons ? `<div class="why"><h4 class="m">Match · why it fits (${aScore(j) ?? "–"})</h4><p>${esc(j.ai_reasons)}</p></div>` : ""}
+    ${j.compatibility_reasons ? `<div class="why"><h4 class="l">Likelihood · your chances (${cScore(j) ?? "–"})</h4><p>${esc(j.compatibility_reasons)}</p></div>` : ""}
     ${desc ? `<div class="why"><h4 style="color:var(--faint)">Listing extract</h4><p>${esc(desc)}${String(j.description).length > 600 ? "…" : ""}</p></div>` : ""}
     <div class="setlbl">Set status</div>
     <div class="schips">
       ${SETTABLE.map(s => {
         const m = statusMeta(s), on = j.status === s;
         return `<button class="schip status-btn" type="button" data-id="${esc(j.id)}" data-status="${esc(s)}"
-          ${on ? `data-on style="background:${m.color}2E;color:${m.color}"` : ""}>${esc(m.label)}</button>`;
+          ${on ? `data-on style="background:${m.color}30;color:${m.color}"` : ""}>${esc(m.label)}</button>`;
       }).join("")}
     </div>
     <div class="actions">
